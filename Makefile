@@ -36,13 +36,17 @@ INC			=	-I includes `pkg-config --cflags glfw3`
 
 INC_DIR		=	includes/
 
-INC_FILES	=	gomoku.hpp
+INC_FILES	=	gomoku.hpp\
+				CoreEngine.hpp\
+				RenderEngine.hpp\
 
 INC_SRC		=	$(addprefix $(INC_DIR), $(INC_FILES))
 
 SRC_DIR		=	srcs/
 
-FILES		=	main.cpp
+FILES		=	main.cpp\
+				CoreEngine.cpp\
+				RenderEngine.cpp\
 
 SRC			=	$(addprefix $(SRC_DIR), $(FILES))
 
@@ -52,7 +56,7 @@ OBJ			=	$(SRC:.cpp=.o)
 all:			$(NAME)
 
 $(NAME):		$(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB)
 	@echo ""
 	@echo "\033[33m"compilation of $(NAME) : "\033[32m"Success"\033[0m"
 
@@ -60,7 +64,7 @@ $(OBJ):			$(INC_SRC)
 
 %.o:			%.cpp $(INC_SRC)
 	@echo -n .
-	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 
 clean:
 	@/bin/rm -f $(OBJ)
