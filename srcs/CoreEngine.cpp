@@ -13,9 +13,11 @@ CoreEngine::~CoreEngine()
 void	CoreEngine::start(void)
 {
 	std::vector<IComponent *>	components;
+	long double		timeF;
 
 	while ( !glfwWindowShouldClose( this->render->getWin() ) )
 	{
+		this->startF = static_cast<long double>(clock());
 		components = this->game->getComponents();
 
 		for (size_t i = 0; i < components.size(); ++i)
@@ -28,6 +30,10 @@ void	CoreEngine::start(void)
 		{
 			components[i]->render(this->render);
 		}
+
+		timeF = (static_cast<long double>(clock()) - this->startF) / CLOCKS_PER_SEC;
+		if ( timeF < (1.0 / 30.0) )
+			usleep( ((1.0 / 30.0) - timeF) * 1000000 );
 	}
 }
 

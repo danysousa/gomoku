@@ -3,6 +3,8 @@
 
 # include <RenderEngine.hpp>
 # include <GameEngine.hpp>
+# include <time.h>
+# include <unistd.h>
 
 class CoreEngine
 {
@@ -12,8 +14,11 @@ class CoreEngine
 		void		start( void );
 
 	private:
-		RenderEngine	*render;
-		GameEngine		*game;
+		RenderEngine			*render;
+		GameEngine				*game;
+
+		long double		startF;
+
 		void		test(void);
 };
 
