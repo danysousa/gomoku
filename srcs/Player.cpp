@@ -8,7 +8,7 @@ Player::Player( void )
 	this->player = 1;
 }
 
-Player::Player( int player ) : player(player)
+Player::Player( int player ) : player( player )
 {
 	
 }

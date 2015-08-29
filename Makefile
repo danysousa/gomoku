@@ -29,6 +29,7 @@ INC_FILES	=	gomoku.hpp\
 				RenderEngine.hpp\
 				IComponent.hpp\
 				Goban.hpp\
+				Stones.hpp\
 				Player.hpp\
 				GameEngine.hpp\
 
@@ -41,6 +42,7 @@ FILES		=	main.cpp\
 				RenderEngine.cpp\
 				IComponent.cpp\
 				Goban.cpp\
+				Stones.cpp\
 				Player.cpp\
 				GameEngine.cpp\
 
