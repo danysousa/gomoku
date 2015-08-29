@@ -12,6 +12,9 @@ CoreEngine::~CoreEngine()
 }
 void	CoreEngine::start(void)
 {
+	Player *p = new Player( 1 );
+
+	std::cout << p->getPlayer() << std::endl;
 	std::vector<IComponent *>	components;
 	long double		timeF;
 
