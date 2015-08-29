@@ -31,8 +31,9 @@ GLFWwindow *RenderEngine::getWin() const
 	return ( this->win );
 }
 
-void		RenderEngine::draw_square(float x, float y, float scale)
+void		RenderEngine::draw_square(float x, float y, float scale, Color *color)
 {
+	glColor3f(color->getRed(), color->getGreen(), color->getBlue());
 	glBegin( GL_POLYGON );
 		glVertex2f( x - scale, y - scale );
 		glVertex2f( x - scale, y + scale );
@@ -41,12 +42,13 @@ void		RenderEngine::draw_square(float x, float y, float scale)
 	glEnd();
 }
 
-void		RenderEngine::draw_circle(float x, float y, float scale)
+void		RenderEngine::draw_circle(float x, float y, float scale, Color *color)
 {
 	double angle;
 	double a;
 	double b;
 
+	glColor3f(color->getRed(), color->getGreen(), color->getBlue());
 	glBegin( GL_POLYGON );
 		for( int i = 0; i <= (280 * scale) + 20; i++ )
 		{
@@ -58,8 +60,9 @@ void		RenderEngine::draw_circle(float x, float y, float scale)
 	glEnd();
 }
 
-void		RenderEngine::draw_line(float xa, float ya, float xb, float yb)
+void		RenderEngine::draw_line(float xa, float ya, float xb, float yb, Color *color)
 {
+	glColor3f(color->getRed(), color->getGreen(), color->getBlue());
 	glBegin(GL_LINE_LOOP);
 		glVertex2d(xa, ya);
 		glVertex2d(xb, yb);

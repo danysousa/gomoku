@@ -54,10 +54,18 @@ void	CoreEngine::test(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	this->render->draw_circle(0,0, 0.02);
-	this->render->draw_square(-0.5,-0.5,0.02);
-	this->render->draw_line(-0.4, -0.4, 0.4, 0.4);
+	Color *color = new Color(0.5, 0.5, 0.0);
+	this->render->draw_circle(0,0, 0.02, color);
+	delete color;
+	color = new Color(0.0, 0.5, 0.5);
 
+	this->render->draw_square(-0.5,-0.5,0.02, color);
+	delete color;
+	color = new Color(0.2, 0.2, 0.9);
+
+	this->render->draw_line(-0.4, -0.4, 0.4, 0.4, color);
+
+	delete color;
 	glfwSwapBuffers(this->render->getWin());
 	glfwPollEvents();
 }

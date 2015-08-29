@@ -7,6 +7,7 @@
 # include <time.h>
 # include <unistd.h>
 # include <math.h>
+# include <Color.hpp>
 
 class CoreEngine
 {

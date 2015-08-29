@@ -4,6 +4,7 @@
 # include <stdlib.h>
 # include <iostream>
 # include <math.h>
+# include <Color.hpp>
 
 class RenderEngine
 {
@@ -11,9 +12,9 @@ class RenderEngine
 		RenderEngine(const char *, int, int);
 		~RenderEngine();
 
-		void		draw_square(float x, float y, float scale);
-		void		draw_circle(float x, float y, float scale);
-		void		draw_line(float xa, float ya, float xb, float yb);
+		void		draw_square(float x, float y, float scale, Color * color);
+		void		draw_circle(float x, float y, float scale, Color * color);
+		void		draw_line(float xa, float ya, float xb, float yb, Color * color);
 
 		GLFWwindow *getWin() const;
 
