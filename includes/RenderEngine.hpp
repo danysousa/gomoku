@@ -18,6 +18,9 @@ class RenderEngine
 
 		GLFWwindow *getWin() const;
 
+		static		int keyPressed[350];
+		static		double cursorPos[2];
+		static		double lastClick[2];
 	private:
 		GLFWwindow *win;
 };
