@@ -2,7 +2,7 @@
 
 int RenderEngine::keyPressed[350];
 double RenderEngine::cursorPos[2];
-double RenderEngine::lastClick[2];
+double RenderEngine::lastClick[3];
 
 static void error_callback( int error, const char* description )
 {
@@ -30,6 +30,7 @@ void button_callback(GLFWwindow* window, int button, int action, int mods)
 	{
 		RenderEngine::lastClick[0] = RenderEngine::cursorPos[0];
 		RenderEngine::lastClick[1] = RenderEngine::cursorPos[1];
+		RenderEngine::lastClick[2] = 1.0;
 	}
 }
 
@@ -53,6 +54,7 @@ RenderEngine::RenderEngine(const char *winName, int winX, int winY)
 	RenderEngine::cursorPos[1] = 0.0;
 	RenderEngine::lastClick[0] = 0.0;
 	RenderEngine::lastClick[1] = 0.0;
+	RenderEngine::lastClick[2] = 0.0;
 
 	glfwSetKeyCallback(this->win, key_callback);
 	glfwSetCursorPosCallback(this->win, cursor_callback);

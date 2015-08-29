@@ -12,29 +12,19 @@ CoreEngine::~CoreEngine()
 }
 void	CoreEngine::start(void)
 {
-	Player *p = new Player( 1 );
-
-	std::cout << p->getPlayer() << std::endl;
 	std::vector<IComponent *>	components;
 	long double		timeF;
 
 	while ( !glfwWindowShouldClose( this->render->getWin() ) )
 	{
 		this->startF = static_cast<long double>(clock());
-		components = this->game->getComponents();
 
-		for (size_t i = 0; i < components.size(); ++i)
-		{
-			components[i]->update();
-		}
+		this->game->updateAll();
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// this->test();
 
-		for (size_t i = 0; i < components.size(); ++i)
-		{
-			components[i]->render(this->render);
-		}
+		this->game->renderAll( this->render );
 
 		glfwSwapBuffers(this->render->getWin());
 		glfwPollEvents();

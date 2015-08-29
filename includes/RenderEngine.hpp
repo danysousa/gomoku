@@ -20,7 +20,7 @@ class RenderEngine
 
 		static		int keyPressed[350];
 		static		double cursorPos[2];
-		static		double lastClick[2];
+		static		double lastClick[3];
 	private:
 		GLFWwindow *win;
 };

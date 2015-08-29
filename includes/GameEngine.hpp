@@ -5,6 +5,7 @@
 # include <Goban.hpp>
 # include <Stones.hpp>
 # include <vector>
+# include <cmath>
 
 class GameEngine
 {
@@ -15,11 +16,14 @@ class GameEngine
 		void		updateAll();
 		void		renderAll( RenderEngine * );
 
-		std::vector<IComponent *>	getComponents( void ) const;
-
 	private:
 		Goban		*goban;
-		Stones		*stones;
+		int			currentPlayer;
+		std::vector<Stones *>		*stones;
+
+		void		addPlayerStone(double x, double y);
+		void		checkCapture();
+		void		deleteStone( int, int );
 };
 
 #endif

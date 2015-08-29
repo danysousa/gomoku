@@ -51,3 +51,10 @@ float		Color::getBlue( void ) const
 {
 	return ( this->blue );
 }
+
+void		Color::setColors( float r, float g, float b )
+{
+	this->red = r;
+	this->green = g;
+	this->blue = b;
+}

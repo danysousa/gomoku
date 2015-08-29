@@ -13,6 +13,7 @@ class Color
 		float		getRed( void ) const;
 		float		getGreen( void ) const;
 		float		getBlue( void ) const;
+		void		setColors( float, float, float );
 
 	private:
 		float	red;
