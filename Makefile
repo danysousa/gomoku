@@ -6,7 +6,7 @@
 #    By: danysousa <danysousa@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/03/03 13:29:20 by dsousa            #+#    #+#              #
-#    Updated: 2015/08/29 10:55:40 by danysousa        ###   ########.fr        #
+#    Updated: 2015/08/29 11:26:37 by danysousa        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ INC_FILES	=	gomoku.hpp\
 				RenderEngine.hpp\
 				IComponent.hpp\
 				Goban.hpp\
+				GameEngine.hpp\
 
 INC_SRC		=	$(addprefix $(INC_DIR), $(INC_FILES))
 
@@ -51,6 +52,7 @@ FILES		=	main.cpp\
 				RenderEngine.cpp\
 				IComponent.cpp\
 				Goban.cpp\
+				GameEngine.cpp\
 
 SRC			=	$(addprefix $(SRC_DIR), $(FILES))
 

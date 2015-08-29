@@ -2,6 +2,7 @@
 # define COREENGINE_HPP
 
 # include <RenderEngine.hpp>
+# include <GameEngine.hpp>
 
 class CoreEngine
 {
@@ -12,6 +13,7 @@ class CoreEngine
 
 	private:
 		RenderEngine	*render;
+		GameEngine		*game;
 		void		test(void);
 };
 

@@ -15,7 +15,7 @@ void	Goban::update()
 	std::cout << "GO";
 }
 
-void	Goban::render()
+void	Goban::render(RenderEngine *render)
 {
 	std::cout << "BAN" << std::endl;
 }

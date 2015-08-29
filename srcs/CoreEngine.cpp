@@ -3,6 +3,7 @@
 CoreEngine::CoreEngine()
 {
 	this->render = new RenderEngine("Gomoku", 900, 600);
+	this->game = new GameEngine();
 }
 
 CoreEngine::~CoreEngine()
@@ -11,9 +12,22 @@ CoreEngine::~CoreEngine()
 }
 void	CoreEngine::start(void)
 {
+	std::vector<IComponent *>	components;
+
 	while ( !glfwWindowShouldClose( this->render->getWin() ) )
 	{
+		components = this->game->getComponents();
+
+		for (size_t i = 0; i < components.size(); ++i)
+		{
+			components[i]->update();
+		}
 		this->test();
+
+		for (size_t i = 0; i < components.size(); ++i)
+		{
+			components[i]->render(this->render);
+		}
 	}
 }
 
