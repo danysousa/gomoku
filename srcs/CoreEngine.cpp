@@ -27,13 +27,17 @@ void	CoreEngine::start(void)
 		{
 			components[i]->update();
 		}
-		this->test();
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		// this->test();
 
 		for (size_t i = 0; i < components.size(); ++i)
 		{
 			components[i]->render(this->render);
 		}
 
+		glfwSwapBuffers(this->render->getWin());
+		glfwPollEvents();
 		timeF = (static_cast<long double>(clock()) - this->startF) / CLOCKS_PER_SEC;
 		if ( timeF < (1.0 / 30.0) )
 			usleep( ((1.0 / 30.0) - timeF) * 1000000 );
@@ -47,7 +51,6 @@ void	CoreEngine::test(void)
 	glfwGetFramebufferSize(this->render->getWin(), &width, &height);
 	ratio = width / (float) height;
 	glViewport(0, 0, width, height);
-	glClear(GL_COLOR_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-ratio, ratio, -1.f, 1.f, 1.f, -1.f);

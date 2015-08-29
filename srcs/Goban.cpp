@@ -17,29 +17,31 @@ void	Goban::update()
 
 void	Goban::render(RenderEngine *render)
 {
-	// float ratio;
-	// int width, height;
-	// glfwGetFramebufferSize(render->getWin(), &width, &height);
-	// ratio = width / (float) height;
-	// glViewport(0, 0, width, height);
-	// glClear(GL_COLOR_BUFFER_BIT);
-	// glMatrixMode(GL_PROJECTION);
-	// glLoadIdentity();
-	// glOrtho(-ratio, ratio, -1.f, 1.f, 1.f, -1.f);
-	// glMatrixMode(GL_MODELVIEW);
-	// glLoadIdentity();
-	// glRotatef((float) glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
-	// glBegin(GL_S);
-	// glColor3f(1.f, 0.f, 0.f);
-	// glVertex3f(-0.6f, -0.4f, 0.f);
-	// glColor3f(0.f, 1.f, 0.f);
-	// glVertex3f(0.6f, -0.4f, 0.f);
-	// glColor3f(0.f, 0.f, 1.f);
-	// glVertex3f(0.f, 0.6f, 0.f);
-	// glEnd();
-	// glfwSwapBuffers(this->render->getWin());
-	// glfwPollEvents();
+	double	x;
+	double	y;
+	double	diff;
+	Color *color;
 
+	color = new Color(0.8, 0.5, 0.3);
+	x = -0.85;
+	y = 0.85;
+	diff = (0.85 * 2.0) / 17.0;
 
-	std::cout << "BAN" << std::endl;
+	render->draw_square(0, 0, 0.9, color);
+	delete color;
+
+	color = new Color(0, 0, 0);
+	for ( double i = 0.0; i < 19.0; i += 1.0 )
+	{
+		render->draw_line(x + (i * diff), y, x + (i * diff), -y, color);
+	}
+
+	x = -0.85;
+	y = 0.85;
+	for ( double i = 0.0; i < 19.0; i += 1.0 )
+	{
+		render->draw_line(x, y - (i * diff), -x, y - (i * diff), color);
+	}
+
+	delete color;
 }
