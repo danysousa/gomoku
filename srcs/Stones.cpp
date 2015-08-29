@@ -8,7 +8,7 @@ Stones::Stones()
 
 }
 
-Stones::Stones( int x, int y ) : x( x ), y( y )
+Stones::Stones( float x, float y ) : x( x ), y( y )
 {
 
 }
@@ -33,12 +33,16 @@ Stones Stones::operator=( Stones const & cpy )
 */
 void	Stones::update()
 {
-	std::cout << "Stones update" << std::endl;
+	// std::cout << "Stones update" << std::endl;
 }
 
 void	Stones::render(RenderEngine *render)
 {
-	std::cout << "Stones render" << std::endl;
+	x = -0.85 + (0.10 * this->x);
+	y = 0.85 - (0.10 * this->y);
+	Color *color = new Color(1.0f, 1.0f, 1.0f);
+	render->draw_circle(x, y, 0.04, color);
+	delete color;
 }
 
 /*

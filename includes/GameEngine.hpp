@@ -3,6 +3,7 @@
 
 # include <RenderEngine.hpp>
 # include <Goban.hpp>
+# include <Stones.hpp>
 # include <vector>
 
 class GameEngine
@@ -18,7 +19,7 @@ class GameEngine
 
 	private:
 		Goban		*goban;
-
+		Stones		*stones;
 };
 
 #endif
