@@ -54,9 +54,9 @@ void	CoreEngine::test(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	this->render->draw_circle();
 	this->render->draw_square();
 	this->render->draw_line();
+	this->render->draw_circle();
 
 	glfwSwapBuffers(this->render->getWin());
 	glfwPollEvents();
