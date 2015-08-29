@@ -31,6 +31,37 @@ GLFWwindow *RenderEngine::getWin() const
 	return ( this->win );
 }
 
+void		RenderEngine::draw_square()
+{
+	glBegin( GL_POLYGON ) ;
+		glVertex2f( -0.3F,-0.3F ) ;
+		glVertex2f( -0.3F,0.3F ) ;
+		glVertex2f( 0.3F,0.3F ) ;
+		glVertex2f( 0.3F,-0.3F ) ;
+	glEnd() ;
+}
+
+void		RenderEngine::draw_circle()
+{
+	glBegin( GL_POLYGON );
+		for( int i =0; i <= 300; i++ )
+		{
+			double angle = 2 * M_PI * i / 300;
+			double x = cos( angle ) / 100.0;
+			double y = sin( angle ) / 100.0;
+			glVertex2d( x, y );
+		}
+	glEnd();
+}
+
+void		RenderEngine::draw_line()
+{
+	glBegin(GL_LINE_LOOP);
+		glVertex2d(-0.5,-0.5);
+		glVertex2d(0.5,0.5);
+	glEnd();
+}
+
 RenderEngine::~RenderEngine()
 {
 	glfwDestroyWindow( this->win );
