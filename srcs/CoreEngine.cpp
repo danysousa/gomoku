@@ -11,6 +11,10 @@ CoreEngine::~CoreEngine()
 }
 void	CoreEngine::start(void)
 {
+	Player *p = new Player( 1 );
+
+	std::cout << p->getPlayer() << std::endl;
+
 	while ( !glfwWindowShouldClose( this->render->getWin() ) )
 	{
 		this->test();

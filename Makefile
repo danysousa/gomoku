@@ -41,6 +41,7 @@ INC_FILES	=	gomoku.hpp\
 				RenderEngine.hpp\
 				IComponent.hpp\
 				Goban.hpp\
+				Player.hpp\
 
 INC_SRC		=	$(addprefix $(INC_DIR), $(INC_FILES))
 
@@ -51,6 +52,7 @@ FILES		=	main.cpp\
 				RenderEngine.cpp\
 				IComponent.cpp\
 				Goban.cpp\
+				Player.cpp\
 
 SRC			=	$(addprefix $(SRC_DIR), $(FILES))
 

@@ -2,6 +2,7 @@
 # define COREENGINE_HPP
 
 # include <RenderEngine.hpp>
+# include <Player.hpp>
 
 class CoreEngine
 {

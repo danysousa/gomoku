@@ -34,7 +34,6 @@ GLFWwindow *RenderEngine::getWin() const
 
 RenderEngine::~RenderEngine()
 {
-	std::cout << "what" << std::endl;
 	glfwDestroyWindow( this->win );
 	glfwTerminate();
 }
