@@ -3,8 +3,6 @@
 # include <GLFW/glfw3.h>
 # include <stdlib.h>
 # include <iostream>
-# include <OpenGL/gl.h>
-# include <OpenGL/glu.h>
 
 class RenderEngine
 {
