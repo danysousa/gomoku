@@ -2,7 +2,10 @@
 
 int main(void)
 {
-	CoreEngine	core;
+	CoreEngine	*core;
 
-	core = CoreEngine();
+	core = new CoreEngine();
+	core->start();
+
+	delete core;
 }

@@ -3,42 +3,42 @@
 CoreEngine::CoreEngine()
 {
 	this->render = new RenderEngine("Gomoku", 900, 600);
-	this->test();
 }
 
 CoreEngine::~CoreEngine()
 {
 	delete this->render;
 }
-
-void	CoreEngine::test(void)
+void	CoreEngine::start(void)
 {
 	while ( !glfwWindowShouldClose( this->render->getWin() ) )
 	{
-		float ratio;
-		int width, height;
-		glfwGetFramebufferSize(this->render->getWin(), &width, &height);
-		ratio = width / (float) height;
-		glViewport(0, 0, width, height);
-		glClear(GL_COLOR_BUFFER_BIT);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(-ratio, ratio, -1.f, 1.f, 1.f, -1.f);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		glRotatef((float) glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
-		glBegin(GL_TRIANGLES);
-		glColor3f(1.f, 0.f, 0.f);
-		glVertex3f(-0.6f, -0.4f, 0.f);
-		glColor3f(0.f, 1.f, 0.f);
-		glVertex3f(0.6f, -0.4f, 0.f);
-		glColor3f(0.f, 0.f, 1.f);
-		glVertex3f(0.f, 0.6f, 0.f);
-		glEnd();
-		glfwSwapBuffers(this->render->getWin());
-		glfwPollEvents();
+		this->test();
 	}
+}
 
-	delete this->render;
-	exit( 0 );
+void	CoreEngine::test(void)
+{
+	float ratio;
+	int width, height;
+	glfwGetFramebufferSize(this->render->getWin(), &width, &height);
+	ratio = width / (float) height;
+	glViewport(0, 0, width, height);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-ratio, ratio, -1.f, 1.f, 1.f, -1.f);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glRotatef((float) glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
+	glBegin(GL_TRIANGLES);
+	glColor3f(1.f, 0.f, 0.f);
+	glVertex3f(-0.6f, -0.4f, 0.f);
+	glColor3f(0.f, 1.f, 0.f);
+	glVertex3f(0.6f, -0.4f, 0.f);
+	glColor3f(0.f, 0.f, 1.f);
+	glVertex3f(0.f, 0.6f, 0.f);
+	glEnd();
+	glfwSwapBuffers(this->render->getWin());
+	glfwPollEvents();
 }

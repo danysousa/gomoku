@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+         #
+#    By: danysousa <danysousa@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/03/03 13:29:20 by dsousa            #+#    #+#              #
-#    Updated: 2015/03/11 16:55:16 by nschilli         ###   ########.fr        #
+#    Updated: 2015/08/29 10:55:40 by danysousa        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,8 @@ INC_DIR		=	includes/
 INC_FILES	=	gomoku.hpp\
 				CoreEngine.hpp\
 				RenderEngine.hpp\
+				IComponent.hpp\
+				Goban.hpp\
 
 INC_SRC		=	$(addprefix $(INC_DIR), $(INC_FILES))
 
@@ -47,6 +49,8 @@ SRC_DIR		=	srcs/
 FILES		=	main.cpp\
 				CoreEngine.cpp\
 				RenderEngine.cpp\
+				IComponent.cpp\
+				Goban.cpp\
 
 SRC			=	$(addprefix $(SRC_DIR), $(FILES))
 

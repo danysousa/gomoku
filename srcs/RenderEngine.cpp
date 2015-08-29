@@ -3,6 +3,7 @@
 static void error_callback( int error, const char* description )
 {
 	std::cout << error << " : " << description << std::endl;
+	exit(EXIT_FAILURE);
 }
 static void key_callback( GLFWwindow* window, int key, int scancode, int action, int mods )
 {
@@ -33,6 +34,7 @@ GLFWwindow *RenderEngine::getWin() const
 
 RenderEngine::~RenderEngine()
 {
+	std::cout << "what" << std::endl;
 	glfwDestroyWindow( this->win );
 	glfwTerminate();
 }

@@ -8,6 +8,7 @@ class CoreEngine
 	public:
 		CoreEngine();
 		~CoreEngine();
+		void		start( void );
 
 	private:
 		RenderEngine	*render;
