@@ -6,6 +6,7 @@
 # include <GameEngine.hpp>
 # include <time.h>
 # include <unistd.h>
+# include <math.h>
 
 class CoreEngine
 {

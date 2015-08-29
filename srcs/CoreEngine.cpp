@@ -2,7 +2,7 @@
 
 CoreEngine::CoreEngine()
 {
-	this->render = new RenderEngine("Gomoku", 900, 600);
+	this->render = new RenderEngine("Gomoku", 900, 900);
 	this->game = new GameEngine();
 }
 
@@ -54,9 +54,9 @@ void	CoreEngine::test(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	this->render->draw_circle();
-	this->render->draw_square();
-	this->render->draw_line();
+	this->render->draw_circle(0,0, 0.02);
+	this->render->draw_square(-0.5,-0.5,0.02);
+	this->render->draw_line(-0.4, -0.4, 0.4, 0.4);
 
 	glfwSwapBuffers(this->render->getWin());
 	glfwPollEvents();

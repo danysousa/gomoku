@@ -31,34 +31,38 @@ GLFWwindow *RenderEngine::getWin() const
 	return ( this->win );
 }
 
-void		RenderEngine::draw_square()
-{
-	glBegin( GL_POLYGON ) ;
-		glVertex2f( -0.3F,-0.3F ) ;
-		glVertex2f( -0.3F,0.3F ) ;
-		glVertex2f( 0.3F,0.3F ) ;
-		glVertex2f( 0.3F,-0.3F ) ;
-	glEnd() ;
-}
-
-void		RenderEngine::draw_circle()
+void		RenderEngine::draw_square(float x, float y, float scale)
 {
 	glBegin( GL_POLYGON );
-		for( int i =0; i <= 300; i++ )
+		glVertex2f( x - scale, y - scale );
+		glVertex2f( x - scale, y + scale );
+		glVertex2f( x + scale, y + scale );
+		glVertex2f( x + scale, y - scale );
+	glEnd();
+}
+
+void		RenderEngine::draw_circle(float x, float y, float scale)
+{
+	double angle;
+	double a;
+	double b;
+
+	glBegin( GL_POLYGON );
+		for( int i = 0; i <= (280 * scale) + 20; i++ )
 		{
-			double angle = 2 * M_PI * i / 300;
-			double x = cos( angle ) / 100.0;
-			double y = sin( angle ) / 100.0;
-			glVertex2d( x, y );
+			angle = 2 * M_PI * i / ((280 * scale) + 20);
+			a = cos( angle );
+			b = sin( angle );
+			glVertex2d( x + a * scale , y + b * scale );
 		}
 	glEnd();
 }
 
-void		RenderEngine::draw_line()
+void		RenderEngine::draw_line(float xa, float ya, float xb, float yb)
 {
 	glBegin(GL_LINE_LOOP);
-		glVertex2d(-0.5,-0.5);
-		glVertex2d(0.5,0.5);
+		glVertex2d(xa, ya);
+		glVertex2d(xb, yb);
 	glEnd();
 }
 

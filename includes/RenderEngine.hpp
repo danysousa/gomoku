@@ -11,9 +11,9 @@ class RenderEngine
 		RenderEngine(const char *, int, int);
 		~RenderEngine();
 
-		void		draw_square();
-		void		draw_circle();
-		void		draw_line();
+		void		draw_square(float x, float y, float scale);
+		void		draw_circle(float x, float y, float scale);
+		void		draw_line(float xa, float ya, float xb, float yb);
 
 		GLFWwindow *getWin() const;
 
