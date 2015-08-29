@@ -9,7 +9,7 @@ class Goban : public IComponent
 		Goban();
 		virtual ~Goban();
 
-		void render( void );
+		void render( RenderEngine * );
 		void update( void );
 
 };
