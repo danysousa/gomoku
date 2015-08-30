@@ -17,7 +17,7 @@ class Player
 
 		void	addCaptureCount( int );
 
-	private:
+	protected:
 		Player( void );
 
 		int		player;

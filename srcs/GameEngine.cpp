@@ -4,7 +4,10 @@ GameEngine::GameEngine() : goban( new Goban() ), currentPlayer(1)
 {
 	this->stones = new std::vector<Stones *>;
 	this->players[0] = new Player(1);
-	this->players[1] = new Player(2);
+	this->computer = new Computer(2);
+
+	this->players[1] = this->computer;
+
 
 	return ;
 }
@@ -16,6 +19,9 @@ GameEngine::~GameEngine()
 
 void		GameEngine::updateAll()
 {
+	if ( this->currentPlayer == 2 && this->computer )
+		this->computer->play( this->goban, this->stones );
+
 	this->goban->update();
 	if ( RenderEngine::lastClick[2] > 0.0 )
 		this->addPlayerStone(RenderEngine::lastClick[0], RenderEngine::lastClick[1]);

@@ -18,7 +18,7 @@ class Goban : public IComponent
 		bool		canPlayHere( int player, int x, int y );
 
 	private:
-		int		stones[19][19];
+		int			stones[19][19];
 
 		bool		isCaptureZone( int player, int x, int y );
 		bool		isDoubleThree( int player, int x, int y );
