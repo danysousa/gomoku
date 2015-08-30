@@ -84,21 +84,25 @@ void		GameEngine::checkWin()
 
 int		GameEngine::checkAlignement( int axeX1, int axeY1, int axeX2, int axeY2, Stones *lastStone )
 {
+	int		j;
 	int		i;
 	int		x;
 	int		y;
 
 	x = lastStone->getX();
 	y = lastStone->getY();
-	i = 1;
-	while (  this->goban->playerHere( x + axeX1 * i , y + axeY1 * i) == lastStone->getPlayer() )
+	i = 0;
+	while (  this->goban->playerHere( x + axeX1 * i, y + axeY1 * i ) == lastStone->getPlayer() )
 		i++;
-	if ( i < 5 )
-	{
-		while (  this->goban->playerHere( x + axeX2 * i , y + axeY2 * i) == lastStone->getPlayer() )
-			i++;
-	}
-	return (i);
+	if (i >= 5)
+		return (i);
+	j = i;
+	i = 1;
+	while (  this->goban->playerHere( x + axeX2 * i, y + axeY2 * i ) == lastStone->getPlayer() )
+		i++;
+	j = j + (i - 1);
+
+	return (j);
 }
 
 void		GameEngine::checkCapture()
