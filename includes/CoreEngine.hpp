@@ -2,7 +2,6 @@
 # define COREENGINE_HPP
 
 # include <RenderEngine.hpp>
-# include <Player.hpp>
 # include <GameEngine.hpp>
 # include <time.h>
 # include <unistd.h>

@@ -3,6 +3,8 @@
 GameEngine::GameEngine() : goban( new Goban() ), currentPlayer(1)
 {
 	this->stones = new std::vector<Stones *>;
+	this->players[0] = new Player(1);
+	this->players[1] = new Player(2);
 
 	return ;
 }
@@ -37,7 +39,7 @@ void		GameEngine::addPlayerStone( double x, double y )
 	a = round(( x + 0.85 ) / tmp);
 	b = round(( -y + 0.85 ) / tmp);
 
-	if ( this->goban->playerHere( a, b ) > 0)
+	if ( !this->goban->canPlayHere( this->currentPlayer, a, b ) )
 		return ;
 
 	this->stones->push_back( new Stones( a, b, this->currentPlayer ) );
@@ -117,6 +119,7 @@ void		GameEngine::checkCapture()
 				this->goban->playerHere(x + 2 * a, y + 2 * b) == enemy &&
 				this->goban->playerHere(x + 3 * a, y + 3 * b) == this->stones->back()->getPlayer() )
 			{
+				this->players[this->stones->back()->getPlayer() - 1]->addCaptureCount( 2 );
 				this->deleteStone(x + a, y + b);
 				this->deleteStone(x + 2 * a, y + 2 * b);
 			}

@@ -15,8 +15,13 @@ class Goban : public IComponent
 		void	deleteStone( int x, int y );
 		int		playerHere( int x, int y );
 
+		bool		canPlayHere( int player, int x, int y );
+
 	private:
 		int		stones[19][19];
+
+		bool		isCaptureZone( int player, int x, int y );
+
 };
 
 #endif
