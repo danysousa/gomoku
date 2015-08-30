@@ -8,9 +8,9 @@ Player::Player( void )
 	this->player = 1;
 }
 
-Player::Player( int player ) : player( player )
+Player::Player( int player ) : player( player ), captured( 0 )
 {
-	
+
 }
 
 Player::Player( Player const & cpy )
@@ -29,13 +29,22 @@ Player::~Player( void )
 Player Player::operator=( Player const & cpy )
 {
 	this->player = cpy.getPlayer();
+	this->captured = cpy.getCaptured();
 	return ( *this );
 }
 
 /*
 ** METHOD
 */
-
+void		Player::addCaptureCount( int count )
+{
+	this->captured += count;
+	if ( this->captured >= 10 )
+	{
+		std::cout << "Player " << this->player << " win by capture" << std::endl;
+		exit( 1 );
+	}
+}
 
 /*
 ** GETTER & SETTER
@@ -43,4 +52,9 @@ Player Player::operator=( Player const & cpy )
 int			Player::getPlayer( void ) const
 {
 	return ( this->player );
+}
+
+int			Player::getCaptured( void ) const
+{
+	return ( this->captured );
 }

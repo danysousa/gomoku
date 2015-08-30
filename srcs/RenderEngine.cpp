@@ -40,6 +40,7 @@ RenderEngine::RenderEngine(const char *winName, int winX, int winY)
 	glfwSetErrorCallback(error_callback);
 	if ( !glfwInit() )
 		exit(EXIT_FAILURE);
+	glfwWindowHint( GLFW_RESIZABLE, GL_FALSE );
 	this->win = glfwCreateWindow(winX, winY, winName, NULL, NULL);
 	if ( !this->win )
 	{

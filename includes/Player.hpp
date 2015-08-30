@@ -13,11 +13,15 @@ class Player
 		Player	operator=( Player const & cpy );
 
 		int		getPlayer( void ) const;
+		int		getCaptured( void ) const;
+
+		void	addCaptureCount( int );
 
 	private:
 		Player( void );
 
 		int		player;
+		int		captured;
 };
 
 #endif
