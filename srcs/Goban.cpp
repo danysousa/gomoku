@@ -38,6 +38,53 @@ int		Goban::playerHere( int x, int y )
 	return ( this->stones[x][y] );
 }
 
+bool	Goban::isCaptureZone( int player, int x, int y )
+{
+	int		pattern[4];
+	int		i;
+	int		tmpX;
+	int		tmpY;
+
+	pattern[0] = player == 1 ? 2 : 1;
+	pattern[1] = 0;
+	pattern[2] = player;
+	pattern[3] = pattern[0];
+
+	for (int a = -1; a <= 1; ++a)
+	{
+		for (int b = -1; b <= 1; ++b)
+		{
+			if ( a == 0 && b == 0 )
+				continue ;
+
+			tmpX = x + a >= 0 && x + a < 19 ? x + a : x ;
+			tmpY = y + b >= 0 && y + b < 19 ? y + b : y ;
+			i = 0;
+			while ( i < 4 )
+			{
+				if ( pattern[i] != this->stones[tmpX - ( i * a )][tmpY - ( i * b )] )
+					break ;
+				i++;
+			}
+			if ( i == 4 )
+				return ( true );
+		}
+	}
+
+	return ( false );
+}
+
+bool		Goban::canPlayHere( int player, int x, int y )
+{
+	if ( this->playerHere( x, y ) != 0 )
+		return ( false );
+
+	if ( this->isCaptureZone( player, x, y ) )
+		return ( false );
+
+	return ( true );
+}
+
 void	Goban::update()
 {
 	return ;
