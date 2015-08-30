@@ -26,6 +26,8 @@ class GameEngine
 		void		addPlayerStone(double x, double y);
 		void		checkCapture();
 		void		deleteStone( int, int );
+		bool		isCaptureZone( int, int );
+		bool		canPlayHere( int, int );
 };
 
 #endif

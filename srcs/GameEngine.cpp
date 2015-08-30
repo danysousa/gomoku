@@ -39,7 +39,7 @@ void		GameEngine::addPlayerStone( double x, double y )
 	a = round(( x + 0.85 ) / tmp);
 	b = round(( -y + 0.85 ) / tmp);
 
-	if ( this->goban->playerHere( a, b ) > 0)
+	if ( !this->canPlayHere( a, b ) )
 		return ;
 
 	this->stones->push_back( new Stones( a, b, this->currentPlayer ) );
@@ -89,6 +89,53 @@ void		GameEngine::checkCapture()
 			}
 		}
 	}
+}
+
+bool		GameEngine::isCaptureZone( int x, int y )
+{
+	int		pattern[4];
+	int		i;
+	int		tmpX;
+	int		tmpY;
+
+	pattern[0] = this->currentPlayer == 1 ? 2 : 1;
+	pattern[1] = 0;
+	pattern[2] = this->currentPlayer;
+	pattern[3] = pattern[0];
+
+	for (int a = -1; a <= 1; ++a)
+	{
+		for (int b = -1; b <= 1; ++b)
+		{
+			if ( a == 0 && b == 0 )
+				continue ;
+
+			tmpX = x + a;
+			tmpY = y + b;
+			i = 0;
+			while ( i < 4 )
+			{
+				if ( pattern[i] != this->goban->playerHere( tmpX - ( i * a ), tmpY - ( i * b ) ) )
+					break ;
+				i++;
+			}
+			if ( i == 4 )
+				return ( true );
+		}
+	}
+
+	return ( false );
+}
+
+bool		GameEngine::canPlayHere( int x, int y )
+{
+	if ( this->goban->playerHere( x, y ) != 0 )
+		return ( false );
+
+	if ( this->isCaptureZone( x, y ) )
+		return ( false );
+
+	return ( true );
 }
 
 void		GameEngine::renderAll( RenderEngine *render )
