@@ -21,6 +21,7 @@ class Goban : public IComponent
 		int		stones[19][19];
 
 		bool		isCaptureZone( int player, int x, int y );
+		bool		isDoubleThree( int player, int x, int y );
 
 };
 
