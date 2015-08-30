@@ -17,6 +17,8 @@ class Goban : public IComponent
 
 		bool		canPlayHere( int player, int x, int y );
 
+		int		**toIntArray( void ) const;
+
 	private:
 		int			stones[19][19];
 

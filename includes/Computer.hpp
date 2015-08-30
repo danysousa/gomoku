@@ -20,6 +20,9 @@ class Computer : public Player
 
 	private:
 		Computer( void );
+		int			scoreAlignement( int **goban, int axeX, int axeY, int x, int y ) const;
+		int			score( int **goban, int player ) const;
+
 };
 
 #endif

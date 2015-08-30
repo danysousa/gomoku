@@ -199,3 +199,21 @@ void	Goban::render(RenderEngine *render)
 /*
 ** GETTER & SETTER
 */
+
+int		**Goban::toIntArray( void ) const
+{
+	int		**result;
+
+	result = new int *[19];
+
+	for (int i = 0; i < 19; ++i)
+	{
+		result[i] = new int[19];
+		for (int j = 0; j < 19; ++j)
+		{
+			result[i][j] = this->stones[i][j];
+		}
+	}
+
+	return ( result );
+}
