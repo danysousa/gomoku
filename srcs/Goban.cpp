@@ -1,5 +1,8 @@
 #include <Goban.hpp>
 
+/*
+** CONSTRUCT & DESTRUCT
+*/
 Goban::Goban()
 {
 	for (int i = 0; i < 19; ++i)
@@ -14,6 +17,14 @@ Goban::~Goban()
 
 }
 
+/*
+** OPERATOR
+*/
+
+
+/*
+** METHOD
+*/
 void	Goban::addStone( int x, int y, int player )
 {
 	if ( x < 0 || x > 18 || y < 0 || y > 18 )
@@ -83,3 +94,7 @@ void	Goban::render(RenderEngine *render)
 
 	delete color;
 }
+
+/*
+** GETTER & SETTER
+*/

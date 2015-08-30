@@ -44,6 +44,7 @@ void		GameEngine::addPlayerStone( double x, double y )
 	this->goban->addStone( a, b, this->currentPlayer );
 	this->currentPlayer = this->currentPlayer == 1 ? 2 : 1;
 	this->checkCapture();
+	this->checkWin();
 }
 
 void		GameEngine::deleteStone(int x, int y)
@@ -61,6 +62,41 @@ void		GameEngine::deleteStone(int x, int y)
 		}
 		pos++;
 	}
+}
+
+void		GameEngine::checkWin()
+{
+	int		currentPlayer;
+
+	currentPlayer =  this->stones->back()->getPlayer();
+
+	if ( checkAlignement( -1, -1, 1, 1, this->stones->back() ) >= 5
+		|| checkAlignement( -1, 0, 1, 0, this->stones->back() ) >= 5
+		|| checkAlignement( 0, -1, 0, 1, this->stones->back() ) >= 5
+		|| checkAlignement( -1, 1, 1, -1, this->stones->back() ) >= 5 )
+	{
+		std::cout << "Player " << currentPlayer << " Win ! " << std::endl;
+		exit(0);
+	}
+}
+
+int		GameEngine::checkAlignement( int axeX1, int axeY1, int axeX2, int axeY2, Stones *lastStone )
+{
+	int		i;
+	int		x;
+	int		y;
+
+	x = lastStone->getX();
+	y = lastStone->getY();
+	i = 1;
+	while (  this->goban->playerHere( x + axeX1 * i , y + axeY1 * i) == lastStone->getPlayer() )
+		i++;
+	if ( i < 5 )
+	{
+		while (  this->goban->playerHere( x + axeX2 * i , y + axeY2 * i) == lastStone->getPlayer() )
+			i++;
+	}
+	return (i);
 }
 
 void		GameEngine::checkCapture()
