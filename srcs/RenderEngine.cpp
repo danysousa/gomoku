@@ -41,6 +41,7 @@ RenderEngine::RenderEngine(const char *winName, int winX, int winY)
 	if ( !glfwInit() )
 		exit(EXIT_FAILURE);
 	glfwWindowHint( GLFW_RESIZABLE, GL_FALSE );
+	glfwWindowHint( GLFW_SAMPLES, 10 );
 	this->win = glfwCreateWindow(winX, winY, winName, NULL, NULL);
 	if ( !this->win )
 	{

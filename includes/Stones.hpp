@@ -7,7 +7,7 @@ class Stones : public IComponent
 {
 	public:
 		Stones( void );
-		Stones ( float x, float y, int player );
+		Stones ( int x, int y, int player );
 		virtual ~Stones();
 
 		Stones	operator=( Stones const & cpy );
@@ -20,9 +20,9 @@ class Stones : public IComponent
 		int		getPlayer( void ) const;
 
 	private:
-		float		x;
-		float		y;
-		int			player;
+		int		x;
+		int		y;
+		int		player;
 };
 
 #endif

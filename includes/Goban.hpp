@@ -11,7 +11,7 @@ class Goban : public IComponent
 		Goban( int **goban );
 		virtual ~Goban();
 
-		Goban	operator=( Goban const & cpy );
+		Goban	&operator=( Goban const & cpy );
 
 		void	render( RenderEngine * );
 		void	update( void );
@@ -19,15 +19,15 @@ class Goban : public IComponent
 		void	deleteStone( int x, int y );
 		int		playerHere( int x, int y ) const;
 
-		bool	canPlayHere( int player, int x, int y );
+		bool	canPlayHere( int player, int x, int y ) const;
 
 		int		**toIntArray( void ) const;
 
 	private:
 		int		stones[19][19];
 
-		bool	isCaptureZone( int player, int x, int y );
-		bool	isDoubleThree( int player, int x, int y );
+		bool	isCaptureZone( int player, int x, int y ) const;
+		bool	isDoubleThree( int player, int x, int y ) const;
 };
 
 #endif

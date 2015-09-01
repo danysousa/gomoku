@@ -14,6 +14,7 @@ Goban::Goban()
 
 Goban::Goban( Goban const & cpy )
 {
+	std::cout << "GOBAN construct by copy" << std::endl;
 	*this = cpy;
 }
 
@@ -35,7 +36,7 @@ Goban::~Goban()
 ** OPERATOR
 */
 
-Goban		Goban::operator=( Goban const & cpy )
+Goban		&Goban::operator=( Goban const & cpy )
 {
 	for (int i = 0; i < 19; ++i)
 	{
@@ -73,7 +74,7 @@ int		Goban::playerHere( int x, int y ) const
 	return ( this->stones[x][y] );
 }
 
-bool	Goban::isDoubleThree( int player, int x, int y )
+bool	Goban::isDoubleThree( int player, int x, int y ) const
 {
 	int		pattern[5];
 	int		match[2];
@@ -127,7 +128,7 @@ bool	Goban::isDoubleThree( int player, int x, int y )
 	return ( false );
 }
 
-bool	Goban::isCaptureZone( int player, int x, int y )
+bool	Goban::isCaptureZone( int player, int x, int y ) const
 {
 	int		pattern[4];
 	int		i;
@@ -163,7 +164,7 @@ bool	Goban::isCaptureZone( int player, int x, int y )
 	return ( false );
 }
 
-bool		Goban::canPlayHere( int player, int x, int y )
+bool		Goban::canPlayHere( int player, int x, int y ) const
 {
 	if ( this->playerHere( x, y ) != 0 )
 		return ( false );

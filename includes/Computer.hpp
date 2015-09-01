@@ -4,6 +4,7 @@
 # include <Player.hpp>
 # include <Goban.hpp>
 # include <Stones.hpp>
+# include <Hit.hpp>
 # include <vector>
 # include <iostream>
 
@@ -16,13 +17,14 @@ class Computer : public Player
 
 		Computer	operator=( Computer const & cpy );
 
-		void	play( Goban *, std::vector<Stones *> * );
+		Stones	*play( Goban *, std::vector<Stones *> );
 		int		checkMoveExist(int x, int y, std::vector<Stones *> *canMove);
 	private:
 		Computer( void );
 		int		scoreAlignement( int **goban, int axeX, int axeY, int x, int y ) const;
-		int		score( Goban *goban, int player ) const;
-		void	findFreeMove( Goban *, std::vector<Stones *> *, std::vector<Stones *> *, int );
+		int		score( Goban const &goban, int player ) const;
+		void	findFreeMove( Goban const &, std::vector<Stones *>, std::vector<Stones *> *, int );
+		Hit		*simulate( Goban *goban, std::vector<Stones *> *canMove, std::vector<Stones *> stones );
 
 		int		numberFreeMove;
 };

@@ -8,7 +8,7 @@ Stones::Stones()
 
 }
 
-Stones::Stones( float x, float y, int player ) : x( x ), y( y ), player( player )
+Stones::Stones( int x, int y, int player ) : x( x ), y( y ), player( player )
 {
 
 }

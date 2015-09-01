@@ -8,21 +8,21 @@ Hit::Hit()
 
 }
 
-Hit::Hit( int x, int y, int player, int score, Goban *goban ) : x( x ), y( y ), player( player ), score( score )
+Hit::Hit( int x, int y, int player, Goban const &goban ) : x( x ), y( y ), player( player ), score( 0 )
 {
-	this->stateAfter = new Goban( *goban );
-	this->stateAfter->addStone( x, y, this->player );
+	this->stateAfter = goban;
+	this->stateAfter.addStone( x, y, this->player );
 }
 
 Hit::~Hit()
 {
-	delete this->stateAfter;
+
 }
 
 /*
 ** OPERATOR
 */
-Hit		Hit::operator=( Hit const & cpy )
+Hit		&Hit::operator=( Hit const & cpy )
 {
 	this->x = cpy.getX();
 	this->y = cpy.getY();
@@ -32,6 +32,25 @@ Hit		Hit::operator=( Hit const & cpy )
 /*
 ** METHOD
 */
+
+void	Hit::addPossibility( Hit *elem )
+{
+	this->possibility.push_back( elem );
+}
+
+int		Hit::getMinScore( void )
+{
+	int		result;
+	int		tmp;
+
+	for (size_t i = 0; i < this->possibility.size(); ++i)
+	{
+		tmp = this->possibility.at(i)->getScore();
+		result = i == 0 || tmp < result ? tmp : result;
+	}
+
+	return ( result );
+}
 
 /*
 ** GETTER & SETTER
@@ -55,3 +74,14 @@ int		Hit::getScore( void ) const
 {
 	return ( this->score );
 }
+
+Goban	const &Hit::getStateAfter( void ) const
+{
+	return ( this->stateAfter );
+}
+
+void	Hit::setScore( int value )
+{
+	this->score = value;
+}
+

@@ -19,8 +19,15 @@ GameEngine::~GameEngine()
 
 void		GameEngine::updateAll()
 {
+	int		tmp;
 	if ( this->currentPlayer == 2 && this->computer )
-		this->computer->play( this->goban, this->stones );
+	{
+		this->stones->push_back( this->computer->play( this->goban, *(this->stones) ) );
+		tmp = this->stones->size() - 1;
+		this->goban->addStone( this->stones->at(tmp)->getX(), this->stones->at(tmp)->getY(), 2 );
+		this->currentPlayer = 1;
+		return ;
+	}
 
 	this->goban->update();
 	if ( RenderEngine::lastClick[2] > 0.0 )
