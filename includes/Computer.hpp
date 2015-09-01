@@ -16,16 +16,15 @@ class Computer : public Player
 
 		Computer	operator=( Computer const & cpy );
 
-		void					play( Goban *, std::vector<Stones *> * );
-		void					findFreeMove( Goban *goban, std::vector<Stones *> *stones, std::vector<Stones *> *canMove );
-		int						checkMoveExist(int x, int y, std::vector<Stones *> *canMove);
+		void	play( Goban *, std::vector<Stones *> * );
+		int		checkMoveExist(int x, int y, std::vector<Stones *> *canMove);
 	private:
 		Computer( void );
-		int			scoreAlignement( int **goban, int axeX, int axeY, int x, int y ) const;
-		int			score( int **goban, int player ) const;
+		int		scoreAlignement( int **goban, int axeX, int axeY, int x, int y ) const;
+		int		score( Goban *goban, int player ) const;
+		void	findFreeMove( Goban *, std::vector<Stones *> *, std::vector<Stones *> *, int );
 
-
-		int						numberFreeMove;
+		int		numberFreeMove;
 };
 
 #endif

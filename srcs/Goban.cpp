@@ -12,6 +12,20 @@ Goban::Goban()
 	}
 }
 
+Goban::Goban( Goban const & cpy )
+{
+	*this = cpy;
+}
+
+Goban::Goban( int **goban )
+{
+	for (int i = 0; i < 19; ++i)
+	{
+		for (int j = 0; j < 19; ++j)
+			this->stones[i][j] = goban[i][j];
+	}
+}
+
 Goban::~Goban()
 {
 
@@ -21,6 +35,16 @@ Goban::~Goban()
 ** OPERATOR
 */
 
+Goban		Goban::operator=( Goban const & cpy )
+{
+	for (int i = 0; i < 19; ++i)
+	{
+		for (int j = 0; j < 19; ++j)
+			this->stones[i][j] = cpy.playerHere(i, j);
+	}
+
+	return ( *this );
+}
 
 /*
 ** METHOD
@@ -41,7 +65,7 @@ void	Goban::deleteStone( int x, int y )
 	this->stones[x][y] = 0;
 }
 
-int		Goban::playerHere( int x, int y )
+int		Goban::playerHere( int x, int y ) const
 {
 	if ( x < 0 || x > 18 || y < 0 || y > 18 )
 		return ( -1 );

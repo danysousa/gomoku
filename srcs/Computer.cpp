@@ -36,11 +36,12 @@ Computer Computer::operator=( Computer const & cpy )
 /*
 ** METHOD
 */
-void					Computer::play( Goban *goban, std::vector<Stones *> *stones )
+void		Computer::play( Goban *goban, std::vector<Stones *> *stones )
 {
-	// std::cout << this->score( goban->toIntArray(), this->player ) << std::endl;
+
+	std::cout << this->score( goban, this->player ) << std::endl;
 	std::vector<Stones *> *canMove = new std::vector<Stones *>;
-	this->findFreeMove( goban, stones, canMove );
+	this->findFreeMove( goban, stones, canMove, this->player );
 
 	return ;
 }
@@ -101,28 +102,21 @@ int			Computer::scoreAlignement( int **goban, int axeX, int axeY, int x, int y )
 }
 
 
-int			Computer::score( int **goban, int player ) const
+int			Computer::score( Goban *goban, int player ) const
 {
 	int		score;
 	int		**tmp;
 	int		inc;
 
-	tmp = new int *[19];
-	score = 0;
-	for (int i = 0; i < 19; ++i)
-	{
-		tmp[i] = new int[19];
-		for (int j = 0; j < 19; ++j)
-			tmp[i][j] = goban[i][j];
-	}
+	tmp = goban->toIntArray();
 
 	for (int i = 0; i < 19; ++i)
 	{
 		for (int j = 0; j < 19; ++j)
 		{
-			if ( goban[i][j] <= 0 )
+			if ( tmp[i][j] <= 0 )
 				continue ;
-			inc = goban[i][j] == player ? 1 : -1;
+			inc = tmp[i][j] == player ? 1 : -1;
 			for (int a = -1; a <= 0; ++a)
 			{
 				for (int b = -1; b <= 1; ++b)
@@ -134,10 +128,15 @@ int			Computer::score( int **goban, int player ) const
 			}
 		}
 	}
+
+	for (int i = 0; i < 19; ++i)
+		delete [] tmp[i];
+	delete [] tmp;
+
 	return ( score );
 }
 
-void	Computer::findFreeMove( Goban *goban, std::vector<Stones *> *stones, std::vector<Stones *> *canMove )
+void	Computer::findFreeMove( Goban *goban, std::vector<Stones *> *stones, std::vector<Stones *> *canMove, int player )
 {
 	int		j = 0;
 	int		x;
@@ -153,7 +152,7 @@ void	Computer::findFreeMove( Goban *goban, std::vector<Stones *> *stones, std::v
 			{
 				if ( goban->playerHere( x - a, y - b ) == 0 )
 				{
-					if ( checkMoveExist( x - a, y - b, canMove ) == 0 )
+					if ( checkMoveExist( x - a, y - b, canMove ) == 0 && goban->canPlayHere( player, x - a, y - b ) )
 					{
 						j++;
 						canMove->push_back( new Stones( x - a, y - b, 0 ) );

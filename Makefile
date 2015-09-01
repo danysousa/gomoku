@@ -34,6 +34,7 @@ INC_FILES	=	gomoku.hpp\
 				GameEngine.hpp\
 				Color.hpp\
 				Computer.hpp\
+				Hit.hpp\
 
 INC_SRC		=	$(addprefix $(INC_DIR), $(INC_FILES))
 
@@ -49,6 +50,7 @@ FILES		=	main.cpp\
 				GameEngine.cpp\
 				Color.cpp\
 				Computer.cpp\
+				Hit.cpp\
 
 SRC			=	$(addprefix $(SRC_DIR), $(FILES))
 
