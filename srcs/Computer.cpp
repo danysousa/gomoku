@@ -50,18 +50,19 @@ Hit		*Computer::simulate( Goban *goban, std::vector<Stones *> *canMove, std::vec
 		stones.push_back( new Stones( canMove->at(i)->getX(), canMove->at(i)->getY(), this->player ) );
 		findFreeMove( hits.at(i)->getStateAfter(), stones, &tmp, this->player == 1 ? 2 : 1 );
 
+		std::cout << canMove->at(i)->getX() << ", " << canMove->at(i)->getY() << " :" << std::endl;
 		for (size_t j = 0; j < tmp.size(); ++j)
 		{
 			tmpHit = new Hit( tmp.at(j)->getX(), tmp.at(j)->getY(), tmp.at(j)->getPlayer(), hits.at(hits.size() - 1)->getStateAfter() );
 			tmpHit->setScore( this->score( tmpHit->getStateAfter(), this->player ) );
-
+			std::cout << "\t    Score : " << tmpHit->getScore() << std::endl;
 			hits.at(hits.size() - 1)->addPossibility( tmpHit );
 		}
 	}
 
 	for (size_t i = 0; i < hits.size(); ++i)
 	{
-		tmpScore = hits.at( i )->getScore();
+		tmpScore = hits.at( i )->getMinScore();
 		if ( i == 0 || tmpScore > bestScore )
 		{
 			bestScore = tmpScore;
@@ -80,6 +81,7 @@ Stones		*Computer::play( Goban *goban, std::vector<Stones *> stones )
 	this->findFreeMove( *goban, stones, canMove, this->player );
 	hit = this->simulate( goban, canMove, stones );
 
+	std::cout << "\n\n\n" << std::endl;
 	return ( new Stones( hit->getX(), hit->getY(), this->player ) );
 }
 
@@ -105,18 +107,6 @@ int			Computer::scoreAlignement( int **goban, int axeX, int axeY, int x, int y )
 
 	if (a >= 0 && a < 19 && b >= 0 && b < 19 && goban[a][b] == 0 )
 		result[1]++;
-
-	if (i >= 5)
-	{
-		a = x - axeX;
-		b = y - axeY;
-		if (a >= 0 && a < 19 && b >= 0 && b < 19 && goban[a][b] == 0 )
-			result[1]++;
-		result[0] = i;
-		result[1] = (i * i) * result[1];
-
-		return (result[1]);
-	}
 
 	result[0] = i;
 	i = 1;
