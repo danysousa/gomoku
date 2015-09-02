@@ -48,14 +48,14 @@ Hit		*Computer::simulate( Goban *goban, std::vector<Stones *> *canMove, std::vec
 	{
 		hits.push_back( new Hit( canMove->at(i)->getX(), canMove->at(i)->getY(), this->player, *goban) );
 		stones.push_back( new Stones( canMove->at(i)->getX(), canMove->at(i)->getY(), this->player ) );
-		findFreeMove( hits.at(i)->getStateAfter(), stones, &tmp, this->player == 1 ? 2 : 1 );
+		findFreeMove( hits.at(i)->getStateAfter(), stones, &tmp, this->player == 2 ? 1 : 2 );
 
 		std::cout << canMove->at(i)->getX() << ", " << canMove->at(i)->getY() << " :" << std::endl;
 		for (size_t j = 0; j < tmp.size(); ++j)
 		{
 			tmpHit = new Hit( tmp.at(j)->getX(), tmp.at(j)->getY(), tmp.at(j)->getPlayer(), hits.at(hits.size() - 1)->getStateAfter() );
 			tmpHit->setScore( this->score( tmpHit->getStateAfter(), this->player ) );
-			std::cout << "\t    Score : " << tmpHit->getScore() << std::endl;
+			std::cout << "\t    XY => (" << tmpHit->getX() << ", " << tmpHit->getY() << ") --- Score : " << tmpHit->getScore() << std::endl;
 			hits.at(hits.size() - 1)->addPossibility( tmpHit );
 		}
 	}
@@ -99,10 +99,10 @@ int			Computer::scoreAlignement( int **goban, int axeX, int axeY, int x, int y )
 	b = y + axeY * i;
 	while ( a >= 0 && a < 19 && b >= 0 && b < 19 && goban[a][b] == goban[x][y] )
 	{
-		goban[a][b] = - goban[x][y];
+		// goban[a][b] = - goban[x][y];
 		i++;
-		a = x + axeX * i;
-		b = y + axeY * i;
+		a = x + (axeX * i);
+		b = y + (axeY * i);
 	}
 
 	if (a >= 0 && a < 19 && b >= 0 && b < 19 && goban[a][b] == 0 )
@@ -114,16 +114,18 @@ int			Computer::scoreAlignement( int **goban, int axeX, int axeY, int x, int y )
 	b = y - axeY * i;
 	while ( a >= 0 && a < 19 && b >= 0 && b < 19 && goban[a][b] == goban[x][y] )
 	{
-		goban[a][b] = - goban[x][y];
+		// goban[a][b] = - goban[x][y];
 		i++;
-		a = x - axeX * i;
-		b = y - axeY * i;
+		a = x - (axeX * i);
+		b = y - (axeY * i);
 	}
 
 	result[0] = result[0] + (i - 1);
+	// std::cout << "{POK} -----> " << result[0] << std::endl;
 	if (a >= 0 && a < 19 && b >= 0 && b < 19 && goban[a][b] == 0 )
 		result[1]++;
-	result[1] = (result[0] * result[0]) * result[1];
+
+	result[1] = result[1] == 0 ? 0 : ( result[0] * ( result[0] + result[1] ) );
 
 	return (result[1]);
 }
@@ -163,7 +165,7 @@ int			Computer::score( Goban const &goban, int player ) const
 	return ( score );
 }
 
-void	Computer::findFreeMove( Goban const &goban, std::vector<Stones *> stones, std::vector<Stones *> *canMove, int player )
+void	Computer::findFreeMove( Goban const &goban, std::vector<Stones *> stones, std::vector<Stones *> *canMove, int nbplayer )
 {
 	int		j = 0;
 	int		x;
@@ -179,10 +181,10 @@ void	Computer::findFreeMove( Goban const &goban, std::vector<Stones *> stones, s
 			{
 				if ( goban.playerHere( x - a, y - b ) == 0 )
 				{
-					if ( checkMoveExist( x - a, y - b, canMove ) == 0 && goban.canPlayHere( player, x - a, y - b ) )
+					if ( checkMoveExist( x - a, y - b, canMove ) == 0 && goban.canPlayHere( nbplayer, x - a, y - b ) )
 					{
 						j++;
-						canMove->push_back( new Stones( x - a, y - b, 0 ) );
+						canMove->push_back( new Stones( x - a, y - b, nbplayer ) );
 					}
 				}
 			}

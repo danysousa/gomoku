@@ -8,9 +8,10 @@ Hit::Hit()
 
 }
 
-Hit::Hit( int x, int y, int player, Goban const &goban ) : x( x ), y( y ), player( player ), score( 0 )
+Hit::Hit( int x, int y, int player, Goban const &goban ) : x( x ), y( y ), player( player ), score( 0 ), stateAfter( goban )
 {
-	this->stateAfter = goban;
+	// std::cout << "sdf" << std::endl;
+	// this->stateAfter = goban;
 	this->stateAfter.addStone( x, y, this->player );
 }
 
