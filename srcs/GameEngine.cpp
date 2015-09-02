@@ -25,7 +25,10 @@ void		GameEngine::updateAll()
 		this->stones->push_back( this->computer->play( this->goban, *(this->stones) ) );
 		tmp = this->stones->size() - 1;
 		this->goban->addStone( this->stones->at(tmp)->getX(), this->stones->at(tmp)->getY(), 2 );
+		this->checkCapture();
+		this->checkWin();
 		this->currentPlayer = 1;
+
 		return ;
 	}
 

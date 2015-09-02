@@ -14,7 +14,6 @@ Goban::Goban()
 
 Goban::Goban( Goban const & cpy )
 {
-	std::cout << "GOBAN construct by copy" << std::endl;
 	*this = cpy;
 }
 

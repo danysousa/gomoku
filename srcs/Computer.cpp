@@ -36,7 +36,7 @@ Computer Computer::operator=( Computer const & cpy )
 /*
 ** METHOD
 */
-Hit		*Computer::simulate( Goban *goban, std::vector<Stones *> *canMove, std::vector<Stones *> stones )
+Hit		*Computer::simulate( Goban *goban, std::vector<Stones *> *canMove, std::vector<Stones *> *stones )
 {
 	std::vector<Hit *>		hits;
 	std::vector<Stones *>	tmp;
@@ -47,9 +47,9 @@ Hit		*Computer::simulate( Goban *goban, std::vector<Stones *> *canMove, std::vec
 	for (size_t i = 0; i < canMove->size(); ++i)
 	{
 		hits.push_back( new Hit( canMove->at(i)->getX(), canMove->at(i)->getY(), this->player, *goban) );
-		stones.push_back( new Stones( canMove->at(i)->getX(), canMove->at(i)->getY(), this->player ) );
-		findFreeMove( hits.at(i)->getStateAfter(), stones, &tmp, this->player == 2 ? 1 : 2 );
-
+		stones->push_back( new Stones( canMove->at(i)->getX(), canMove->at(i)->getY(), this->player ) );
+		findFreeMove( hits.at(hits.size() - 1)->getStateAfter(), stones, &tmp, this->player == 2 ? 1 : 2 );
+		std::cout << hits.at(hits.size() - 1)->getStateAfter().playerHere(canMove->at(i)->getX(), canMove->at(i)->getY()) << " == " << this->player << std::endl;
 		std::cout << canMove->at(i)->getX() << ", " << canMove->at(i)->getY() << " :" << std::endl;
 		for (size_t j = 0; j < tmp.size(); ++j)
 		{
@@ -58,6 +58,13 @@ Hit		*Computer::simulate( Goban *goban, std::vector<Stones *> *canMove, std::vec
 			std::cout << "\t    XY => (" << tmpHit->getX() << ", " << tmpHit->getY() << ") --- Score : " << tmpHit->getScore() << std::endl;
 			hits.at(hits.size() - 1)->addPossibility( tmpHit );
 		}
+
+		delete stones->at(stones->size() - 1);
+		stones->pop_back();
+		for (size_t i = 0; i < tmp.size(); ++i)
+			delete tmp.at(i);
+
+		tmp.erase(tmp.begin(), tmp.end());
 	}
 
 	for (size_t i = 0; i < hits.size(); ++i)
@@ -78,8 +85,8 @@ Stones		*Computer::play( Goban *goban, std::vector<Stones *> stones )
 	Hit		*hit;
 
 	std::vector<Stones *> *canMove = new std::vector<Stones *>;
-	this->findFreeMove( *goban, stones, canMove, this->player );
-	hit = this->simulate( goban, canMove, stones );
+	this->findFreeMove( *goban, &stones, canMove, this->player );
+	hit = this->simulate( goban, canMove, &stones );
 
 	std::cout << "\n\n\n" << std::endl;
 	return ( new Stones( hit->getX(), hit->getY(), this->player ) );
@@ -121,11 +128,13 @@ int			Computer::scoreAlignement( int **goban, int axeX, int axeY, int x, int y )
 	}
 
 	result[0] = result[0] + (i - 1);
+	if ( result[0] >= 5 )
+		return ( 10000 );
 	// std::cout << "{POK} -----> " << result[0] << std::endl;
 	if (a >= 0 && a < 19 && b >= 0 && b < 19 && goban[a][b] == 0 )
 		result[1]++;
 
-	result[1] = result[1] == 0 ? 0 : ( result[0] * ( result[0] + result[1] ) );
+	result[1] = result[1] == 0 ? 0 : ( result[0] * ( result[0] * (result[1] - 1) ) );
 
 	return (result[1]);
 }
@@ -165,16 +174,16 @@ int			Computer::score( Goban const &goban, int player ) const
 	return ( score );
 }
 
-void	Computer::findFreeMove( Goban const &goban, std::vector<Stones *> stones, std::vector<Stones *> *canMove, int nbplayer )
+void	Computer::findFreeMove( Goban const &goban, std::vector<Stones *> *stones, std::vector<Stones *> *canMove, int nbplayer )
 {
 	int		j = 0;
 	int		x;
 	int		y;
 
-	for ( unsigned int i = 0; i < stones.size(); ++i)
+	for ( unsigned int i = 0; i < stones->size(); ++i)
 	{
-		x = stones.at(i)->getX();
-		y = stones.at(i)->getY();
+		x = stones->at(i)->getX();
+		y = stones->at(i)->getY();
 		for ( int a = -1; a <= 1; a++ )
 		{
 			for ( int b = -1; b <= 1; b++ )
