@@ -49,13 +49,10 @@ Hit		*Computer::simulate( Goban *goban, std::vector<Stones *> *canMove, std::vec
 		hits.push_back( new Hit( canMove->at(i)->getX(), canMove->at(i)->getY(), this->player, *goban) );
 		stones->push_back( new Stones( canMove->at(i)->getX(), canMove->at(i)->getY(), this->player ) );
 		findFreeMove( hits.at(hits.size() - 1)->getStateAfter(), stones, &tmp, this->player == 2 ? 1 : 2 );
-		std::cout << hits.at(hits.size() - 1)->getStateAfter().playerHere(canMove->at(i)->getX(), canMove->at(i)->getY()) << " == " << this->player << std::endl;
-		std::cout << canMove->at(i)->getX() << ", " << canMove->at(i)->getY() << " :" << std::endl;
 		for (size_t j = 0; j < tmp.size(); ++j)
 		{
 			tmpHit = new Hit( tmp.at(j)->getX(), tmp.at(j)->getY(), tmp.at(j)->getPlayer(), hits.at(hits.size() - 1)->getStateAfter() );
 			tmpHit->setScore( this->score( tmpHit->getStateAfter(), this->player ) );
-			std::cout << "\t    XY => (" << tmpHit->getX() << ", " << tmpHit->getY() << ") --- Score : " << tmpHit->getScore() << std::endl;
 			hits.at(hits.size() - 1)->addPossibility( tmpHit );
 		}
 
@@ -88,7 +85,6 @@ Stones		*Computer::play( Goban *goban, std::vector<Stones *> stones )
 	this->findFreeMove( *goban, &stones, canMove, this->player );
 	hit = this->simulate( goban, canMove, &stones );
 
-	std::cout << "\n\n\n" << std::endl;
 	return ( new Stones( hit->getX(), hit->getY(), this->player ) );
 }
 

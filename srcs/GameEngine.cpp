@@ -1,5 +1,7 @@
 #include <GameEngine.hpp>
 
+int GameEngine::counterWin = 0;
+
 GameEngine::GameEngine() : goban( new Goban() ), currentPlayer(1)
 {
 	this->stones = new std::vector<Stones *>;
@@ -93,9 +95,61 @@ void		GameEngine::checkWin()
 		|| checkAlignement( 0, -1, 0, 1, this->stones->back() ) >= 5
 		|| checkAlignement( -1, 1, 1, -1, this->stones->back() ) >= 5 )
 	{
-		std::cout << "Player " << currentPlayer << " Win ! " << std::endl;
-		exit(0);
+		if ( this->checkCounterWin() == 0 )
+		{
+			std::cout << "Player " << currentPlayer << " Win ! " << std::endl;
+			exit(0);
+		}
 	}
+}
+
+int			GameEngine::checkCounterWin()
+{
+	int		nbCurrentPlayer;
+	int		stoneEnemy;
+	int		stoneCurrentPlayer;
+	int		x;
+	int		y;
+	Player	*enemy;
+	Player	*currentPlayer;
+
+	nbCurrentPlayer = this->stones->back()->getPlayer();
+	currentPlayer = nbCurrentPlayer == this->players[0]->getPlayer() ? this->players[0] : this->players[1];
+	enemy = nbCurrentPlayer == this->players[0]->getPlayer() ? this->players[1] : this->players[0];
+
+	if ( enemy->getCaptured() == 8 && GameEngine::counterWin == 0 )
+	{
+		for ( unsigned int i = 0; i < stones->size(); ++i)
+		{
+			x = this->stones->at(i)->getX();
+			y = this->stones->at(i)->getY();
+			for ( int a = -1; a <= 1; a++ )
+			{
+				for ( int b = -1; b <= 1; b++ )
+				{
+					if ( this->goban->playerHere( x - a, y - b ) == 0 )
+					{
+						stoneEnemy = 0;
+						stoneCurrentPlayer = 0;
+						for ( int c = 0; c < 2; ++c )
+						{
+							if ( this->goban->playerHere( x + a * c, y + b * c ) == enemy->getPlayer() )
+								stoneEnemy++;
+						}
+						if ( stoneEnemy == 2 && this->goban->playerHere( x + a * 3, y + b * 3 ) == currentPlayer->getPlayer() )
+							stoneCurrentPlayer++;
+						if ( stoneEnemy == 2 && stoneCurrentPlayer == 1 )
+						{
+							GameEngine::counterWin = 1;
+							return (1);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return (0);
 }
 
 int		GameEngine::checkAlignement( int axeX1, int axeY1, int axeX2, int axeY2, Stones *lastStone )
