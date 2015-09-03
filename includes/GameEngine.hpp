@@ -13,6 +13,7 @@ class GameEngine
 {
 	public:
 		GameEngine();
+		GameEngine( char numberPlayer );
 		~GameEngine();
 
 		void		updateAll();
@@ -29,9 +30,13 @@ class GameEngine
 		void		checkCapture();
 		void		deleteStone( int, int );
 		void		checkWin();
+		int			checkCounterWin();
+
 		int			checkAlignement( int axeX1, int axeY1, int axeX2, int axeY2, Stones *lastStone );
 		bool		isCaptureZone( int, int );
 		bool		canPlayHere( int, int );
+
+		static		int counterWin;
 };
 
 #endif
