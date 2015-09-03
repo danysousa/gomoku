@@ -2,6 +2,7 @@
 # define GOBAN_HPP
 # include <IComponent.hpp>
 # include <iostream>
+# include <vector>
 
 class Goban : public IComponent
 {
@@ -22,12 +23,17 @@ class Goban : public IComponent
 		bool	canPlayHere( int player, int x, int y ) const;
 
 		int		**toIntArray( void ) const;
+		int		getCapturedStones( void ) const;
+		std::vector<int *>	const &getLastDeletedStones( void ) const;
 
 	private:
-		int		stones[19][19];
+		int					stones[19][19];
+		std::vector<int *>	lastDeletedStones;
 
 		bool	isCaptureZone( int player, int x, int y ) const;
 		bool	isDoubleThree( int player, int x, int y ) const;
+		void	checkCapture( int x, int y, int player );
+
 };
 
 #endif

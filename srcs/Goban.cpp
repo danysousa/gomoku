@@ -49,19 +49,51 @@ Goban		&Goban::operator=( Goban const & cpy )
 /*
 ** METHOD
 */
+
+void		Goban::checkCapture( int x, int y, int player )
+{
+	int		enemy;
+
+	enemy = player == 1 ? 2 : 1;
+
+	for (int a = -1; a <= 1; ++a)
+	{
+		for (int b = -1; b <= 1; ++b)
+		{
+			if ( this->playerHere(x + a, y + b) == enemy &&
+				this->playerHere(x + 2 * a, y + 2 * b) == enemy &&
+				this->playerHere(x + 3 * a, y + 3 * b) == player )
+			{
+				this->deleteStone(x + a, y + b);
+				this->deleteStone(x + 2 * a, y + 2 * b);
+			}
+		}
+	}
+}
+
 void	Goban::addStone( int x, int y, int player )
 {
+	for (size_t i = 0; i < this->lastDeletedStones.size(); ++i)
+		delete [] this->lastDeletedStones.at(i);
+	this->lastDeletedStones.erase(this->lastDeletedStones.begin(), this->lastDeletedStones.end());
+
 	if ( x < 0 || x > 18 || y < 0 || y > 18 )
 		return ;
 
 	this->stones[x][y] = player;
+	this->checkCapture( x, y, player );
 }
 
 void	Goban::deleteStone( int x, int y )
 {
+	int		*tmp;
 	if ( x < 0 || x > 18 || y < 0 || y > 18 )
 		return ;
 
+	tmp = new int[2];
+	tmp[0] = x;
+	tmp[1] = y;
+	this->lastDeletedStones.push_back(tmp);
 	this->stones[x][y] = 0;
 }
 
@@ -241,3 +273,14 @@ int		**Goban::toIntArray( void ) const
 
 	return ( result );
 }
+
+int		Goban::getCapturedStones( void ) const
+{
+	return ( this->lastDeletedStones.size() );
+}
+
+std::vector<int *> const		&Goban::getLastDeletedStones( void ) const
+{
+	return ( this->lastDeletedStones );
+}
+

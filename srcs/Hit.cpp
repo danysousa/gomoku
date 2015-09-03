@@ -10,8 +10,7 @@ Hit::Hit()
 
 Hit::Hit( int x, int y, int player, Goban const &goban ) : x( x ), y( y ), player( player ), score( 0 ), stateAfter( goban )
 {
-	// std::cout << "sdf" << std::endl;
-	// this->stateAfter = goban;
+	this->capture = goban.getCapturedStones();
 	this->stateAfter.addStone( x, y, this->player );
 }
 
@@ -79,6 +78,11 @@ int		Hit::getScore( void ) const
 Goban	const &Hit::getStateAfter( void ) const
 {
 	return ( this->stateAfter );
+}
+
+int		Hit::getCapture( void ) const
+{
+	return ( this->capture );
 }
 
 void	Hit::setScore( int value )

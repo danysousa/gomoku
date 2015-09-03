@@ -25,6 +25,7 @@ void		GameEngine::updateAll()
 		this->stones->push_back( this->computer->play( this->goban, *(this->stones) ) );
 		tmp = this->stones->size() - 1;
 		this->goban->addStone( this->stones->at(tmp)->getX(), this->stones->at(tmp)->getY(), 2 );
+		this->computer->addEnemyCaptureCount( this->goban->getCapturedStones() );
 		this->checkCapture();
 		this->checkWin();
 		this->currentPlayer = 1;
@@ -60,9 +61,26 @@ void		GameEngine::addPlayerStone( double x, double y )
 
 	this->stones->push_back( new Stones( a, b, this->currentPlayer ) );
 	this->goban->addStone( a, b, this->currentPlayer );
-	this->currentPlayer = this->currentPlayer == 1 ? 2 : 1;
 	this->checkCapture();
+	this->currentPlayer = this->currentPlayer == 1 ? 2 : 1;
 	this->checkWin();
+}
+
+void		GameEngine::checkCapture()
+{
+	std::vector<int *> const		& captured = this->goban->getLastDeletedStones();
+
+	this->players[this->currentPlayer - 1]->addCaptureCount( this->goban->getCapturedStones() );
+	for (size_t i = 0; i < captured.size(); ++i)
+		this->deleteStone( captured.at(i)[0], captured.at(i)[1] );
+
+	if ( this->players[this->currentPlayer]->getCaptured() >= 10 )
+	{
+		std::cout << "Player " << currentPlayer << " Win by capture! " << std::endl;
+		exit( 0 );
+	}
+
+	return ;
 }
 
 void		GameEngine::deleteStone(int x, int y)
@@ -73,7 +91,6 @@ void		GameEngine::deleteStone(int x, int y)
 	{
 		if ( this->stones->at(pos)->getX() == x && this->stones->at(pos)->getY() == y )
 		{
-			this->goban->deleteStone(x, y);
 			delete this->stones->at(pos);
 			this->stones->erase(i);
 			return ;
@@ -119,32 +136,6 @@ int		GameEngine::checkAlignement( int axeX1, int axeY1, int axeX2, int axeY2, St
 	j = j + (i - 1);
 
 	return (j);
-}
-
-void		GameEngine::checkCapture()
-{
-	int		enemy;
-	int		x;
-	int		y;
-
-	enemy = this->stones->back()->getPlayer() == 1 ? 2 : 1;
-	x = this->stones->back()->getX();
-	y = this->stones->back()->getY();
-
-	for (int a = -1; a <= 1; ++a)
-	{
-		for (int b = -1; b <= 1; ++b)
-		{
-			if ( this->goban->playerHere(x + a, y + b) == enemy &&
-				this->goban->playerHere(x + 2 * a, y + 2 * b) == enemy &&
-				this->goban->playerHere(x + 3 * a, y + 3 * b) == this->stones->back()->getPlayer() )
-			{
-				this->players[this->stones->back()->getPlayer() - 1]->addCaptureCount( 2 );
-				this->deleteStone(x + a, y + b);
-				this->deleteStone(x + 2 * a, y + 2 * b);
-			}
-		}
-	}
 }
 
 void		GameEngine::renderAll( RenderEngine *render )

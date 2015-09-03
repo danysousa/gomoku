@@ -17,6 +17,7 @@ class Hit
 		int		getPlayer( void ) const;
 		Goban	const &getStateAfter( void ) const;
 		int		getScore( void ) const;
+		int		getCapture( void ) const;
 		void	setScore( int );
 
 		int		getMinScore( void );
@@ -30,6 +31,7 @@ class Hit
 		int					y;
 		int					player;
 		int					score;
+		int					capture;
 		Goban				stateAfter;
 		std::vector<Hit *>	possibility;
 };

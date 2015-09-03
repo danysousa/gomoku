@@ -19,6 +19,8 @@ class Computer : public Player
 
 		Stones	*play( Goban *, std::vector<Stones *>);
 		int		checkMoveExist(int x, int y, std::vector<Stones *> *canMove);
+		void	addEnemyCaptureCount( int );
+
 	private:
 		Computer( void );
 		int		scoreAlignement( int **goban, int axeX, int axeY, int x, int y ) const;
@@ -26,6 +28,7 @@ class Computer : public Player
 		void	findFreeMove( Goban const &, std::vector<Stones *> *, std::vector<Stones *> *, int );
 		Hit		*simulate( Goban *goban, std::vector<Stones *> *canMove, std::vector<Stones *> *stones );
 
+		int		enemyCaptureCount;
 		int		numberFreeMove;
 };
 
