@@ -82,10 +82,14 @@ Stones		*Computer::play( Goban *goban, std::vector<Stones *> stones )
 {
 	Hit		*hit;
 
+	long double start;
+
+	start = static_cast<long double>(clock());
 	std::vector<Stones *> *canMove = new std::vector<Stones *>;
 	this->findFreeMove( *goban, &stones, canMove, this->player );
 	hit = this->simulate( goban, canMove, &stones );
 
+	std::cout << "L'IA met " << (static_cast<long double>(clock()) - start) / CLOCKS_PER_SEC << "sec a jouer" << std::endl;
 	return ( new Stones( hit->getX(), hit->getY(), this->player ) );
 }
 

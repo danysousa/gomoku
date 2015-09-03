@@ -28,6 +28,7 @@ GameEngine::GameEngine( char numberPlayer ) : goban( new Goban() ), currentPlaye
 	{
 		this->players[0] = new Player(1);
 		this->players[1] = new Player(2);
+		this->computer = NULL;
 	}
 
 	return ;
@@ -95,7 +96,7 @@ void		GameEngine::checkCapture()
 	for (size_t i = 0; i < captured.size(); ++i)
 		this->deleteStone( captured.at(i)[0], captured.at(i)[1] );
 
-	if ( this->players[this->currentPlayer]->getCaptured() >= 10 )
+	if ( this->players[this->currentPlayer - 1]->getCaptured() >= 10 )
 	{
 		std::cout << "Player " << currentPlayer << " Win by capture! " << std::endl;
 		exit( 0 );

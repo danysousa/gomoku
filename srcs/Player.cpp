@@ -3,9 +3,9 @@
 /*
 ** CONSTRUCT & DESTRUCT
 */
-Player::Player( void )
+Player::Player( void ) : player( 1 ), captured( 0 )
 {
-	this->player = 1;
+
 }
 
 Player::Player( int player ) : player( player ), captured( 0 )
