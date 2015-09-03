@@ -6,6 +6,12 @@ CoreEngine::CoreEngine()
 	this->game = new GameEngine();
 }
 
+CoreEngine::CoreEngine(char numberPlayer)
+{
+	this->render = new RenderEngine("Gomoku", 900, 900);
+	this->game = new GameEngine(numberPlayer);
+}
+
 CoreEngine::~CoreEngine()
 {
 	delete this->render;

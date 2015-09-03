@@ -14,6 +14,25 @@ GameEngine::GameEngine() : goban( new Goban() ), currentPlayer(1)
 	return ;
 }
 
+GameEngine::GameEngine( char numberPlayer ) : goban( new Goban() ), currentPlayer(1)
+{
+	this->stones = new std::vector<Stones *>;
+
+	if ( numberPlayer == '1' )
+	{
+		this->players[0] = new Player(1);
+		this->computer = new Computer(2);
+		this->players[1] = this->computer;
+	}
+	else
+	{
+		this->players[0] = new Player(1);
+		this->players[1] = new Player(2);
+	}
+
+	return ;
+}
+
 GameEngine::~GameEngine()
 {
 	return ;

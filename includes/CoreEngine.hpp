@@ -12,6 +12,7 @@ class CoreEngine
 {
 	public:
 		CoreEngine();
+		CoreEngine( char numberPlayer );
 		~CoreEngine();
 		void		start( void );
 

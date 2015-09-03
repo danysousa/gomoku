@@ -13,6 +13,7 @@ class GameEngine
 {
 	public:
 		GameEngine();
+		GameEngine( char numberPlayer );
 		~GameEngine();
 
 		void		updateAll();
