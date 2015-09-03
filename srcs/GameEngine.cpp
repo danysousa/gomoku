@@ -2,7 +2,7 @@
 
 int GameEngine::counterWin = 0;
 
-GameEngine::GameEngine() : goban( new Goban() ), currentPlayer(1)
+GameEngine::GameEngine() : goban( new Goban() ), currentPlayer(1), win(false)
 {
 	this->stones = new std::vector<Stones *>;
 	this->players[0] = new Player(1);
@@ -14,7 +14,7 @@ GameEngine::GameEngine() : goban( new Goban() ), currentPlayer(1)
 	return ;
 }
 
-GameEngine::GameEngine( char numberPlayer ) : goban( new Goban() ), currentPlayer(1)
+GameEngine::GameEngine( char numberPlayer ) : goban( new Goban() ), currentPlayer(1), win(false)
 {
 	this->stones = new std::vector<Stones *>;
 
@@ -42,6 +42,8 @@ GameEngine::~GameEngine()
 void		GameEngine::updateAll()
 {
 	int		tmp;
+	if ( this->win == true )
+		return ;
 	if ( this->currentPlayer == 2 && this->computer )
 	{
 		this->stones->push_back( this->computer->play( this->goban, *(this->stones) ) );
@@ -99,7 +101,8 @@ void		GameEngine::checkCapture()
 	if ( this->players[this->currentPlayer - 1]->getCaptured() >= 10 )
 	{
 		std::cout << "Player " << currentPlayer << " Win by capture! " << std::endl;
-		exit( 0 );
+		this->win = true;
+		this->stones->at(this->stones->size() - 1)->win = true;
 	}
 
 	return ;
@@ -135,7 +138,8 @@ void		GameEngine::checkWin()
 		if ( this->checkCounterWin() == 0 )
 		{
 			std::cout << "Player " << currentPlayer << " Win ! " << std::endl;
-			exit(0);
+			this->win = true;
+			this->stones->at(this->stones->size() - 1)->win = true;
 		}
 	}
 }

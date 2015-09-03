@@ -10,7 +10,7 @@ Stones::Stones()
 
 Stones::Stones( int x, int y, int player ) : x( x ), y( y ), player( player )
 {
-
+	this->win = false;
 }
 
 Stones::~Stones()
@@ -40,11 +40,15 @@ void	Stones::render(RenderEngine *render)
 	float	tmp;
 	float	a;
 	float	b;
+	Color	*color;
 
 	tmp = (2 * 0.85) / 18;
 	a = -0.85 + tmp * this->x;
 	b = 0.85 - tmp * this->y;
-	Color *color = new Color(this->player - 1, this->player - 1, this->player - 1);
+	if (this->win)
+		color = new Color(1, 0, 0);
+	else
+		color = new Color(this->player - 1, this->player - 1, this->player - 1);
 	render->draw_circle(a, b, 0.045, color);
 	delete color;
 }

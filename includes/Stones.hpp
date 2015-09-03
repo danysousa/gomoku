@@ -19,6 +19,8 @@ class Stones : public IComponent
 		int		getY( void ) const;
 		int		getPlayer( void ) const;
 
+		bool	win;
+
 	private:
 		int		x;
 		int		y;

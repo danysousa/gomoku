@@ -1,5 +1,5 @@
 export	CC	=	g++
-DEBUG		=	TRUE
+DEBUG		=	FALSE
 
 NAME		=	gomoku
 

@@ -13,15 +13,20 @@ static void key_callback( GLFWwindow* window, int key, int scancode, int action,
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	else if (key > 0 && action == GLFW_PRESS)
-		RenderEngine::keyPressed[key] = 1;
+		RenderEngine::keyPressed[key] = (scancode + mods) * 0 + 1;
 	else if (key > 0 && action == GLFW_RELEASE)
-		RenderEngine::keyPressed[key] = 0;
+		RenderEngine::keyPressed[key] = (scancode + mods) * 0 + 0;
+	else if (window)
+		return ;
+
 }
 
 static void cursor_callback(GLFWwindow* window, double x, double y)
 {
 	RenderEngine::cursorPos[0] = (x / 450) - 1;
 	RenderEngine::cursorPos[1] = - ((y / 450) - 1);
+	if ( !window )
+		return ;
 }
 
 void button_callback(GLFWwindow* window, int button, int action, int mods)
@@ -32,6 +37,8 @@ void button_callback(GLFWwindow* window, int button, int action, int mods)
 		RenderEngine::lastClick[1] = RenderEngine::cursorPos[1];
 		RenderEngine::lastClick[2] = 1.0;
 	}
+	else if ( mods || window )
+		return ;
 }
 
 

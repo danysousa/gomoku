@@ -24,6 +24,7 @@ class GameEngine
 		Player		*players[2];
 		Computer	*computer;
 		int			currentPlayer;
+		bool		win;
 		std::vector<Stones *>		*stones;
 
 		void		addPlayerStone(double x, double y);
