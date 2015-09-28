@@ -25,7 +25,9 @@ class GameEngine
 		Computer	*computer;
 		int			currentPlayer;
 		bool		win;
+		int			nbPlayer;
 		std::vector<Stones *>		*stones;
+		Stones		*estimation;
 
 		void		addPlayerStone(double x, double y);
 		void		checkCapture();

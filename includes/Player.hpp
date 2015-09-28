@@ -13,6 +13,7 @@ class Player
 		Player	operator=( Player const & cpy );
 
 		int		getPlayer( void ) const;
+		void	setPlayer( int );
 		int		getCaptured( void ) const;
 
 		void	addCaptureCount( int );

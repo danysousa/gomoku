@@ -8,7 +8,7 @@ Stones::Stones()
 
 }
 
-Stones::Stones( int x, int y, int player ) : x( x ), y( y ), player( player )
+Stones::Stones( int x, int y, int player ) : x( x ), y( y ), player( player ), simulation(false)
 {
 	this->win = false;
 }
@@ -47,6 +47,8 @@ void	Stones::render(RenderEngine *render)
 	b = 0.85 - tmp * this->y;
 	if (this->win)
 		color = new Color(1, 0, 0);
+	else if (this->simulation)
+		color = new Color(0.50, 0.50, 0.50);
 	else
 		color = new Color(this->player - 1, this->player - 1, this->player - 1);
 	render->draw_circle(a, b, 0.045, color);
@@ -69,4 +71,9 @@ int		Stones::getY( void ) const
 int		Stones::getPlayer( void ) const
 {
 	return ( this->player );
+}
+
+void	Stones::setSimulation( bool s )
+{
+	this->simulation = s;
 }

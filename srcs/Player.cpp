@@ -58,3 +58,8 @@ int			Player::getCaptured( void ) const
 {
 	return ( this->captured );
 }
+
+void		Player::setPlayer( int p )
+{
+	this->player = p;
+}

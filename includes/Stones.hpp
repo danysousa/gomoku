@@ -18,6 +18,7 @@ class Stones : public IComponent
 		int		getX( void ) const;
 		int		getY( void ) const;
 		int		getPlayer( void ) const;
+		void	setSimulation( bool s );
 
 		bool	win;
 
@@ -25,6 +26,7 @@ class Stones : public IComponent
 		int		x;
 		int		y;
 		int		player;
+		bool	simulation;
 };
 
 #endif

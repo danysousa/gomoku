@@ -10,25 +10,26 @@ GameEngine::GameEngine() : goban( new Goban() ), currentPlayer(1), win(false)
 
 	this->players[1] = this->computer;
 
-
 	return ;
 }
 
-GameEngine::GameEngine( char numberPlayer ) : goban( new Goban() ), currentPlayer(1), win(false)
+GameEngine::GameEngine( char numberPlayer ) : goban( new Goban() ), currentPlayer(1), win(false), estimation(NULL)
 {
 	this->stones = new std::vector<Stones *>;
 
 	if ( numberPlayer == '1' )
 	{
+		this->nbPlayer = 1;
 		this->players[0] = new Player(1);
 		this->computer = new Computer(2);
 		this->players[1] = this->computer;
 	}
 	else
 	{
+		this->nbPlayer = 2;
 		this->players[0] = new Player(1);
 		this->players[1] = new Player(2);
-		this->computer = NULL;
+		this->computer = new Computer(1);
 	}
 
 	return ;
@@ -44,7 +45,7 @@ void		GameEngine::updateAll()
 	int		tmp;
 	if ( this->win == true )
 		return ;
-	if ( this->currentPlayer == 2 && this->computer )
+	if ( this->currentPlayer == 2 && this->nbPlayer == 1 )
 	{
 		this->stones->push_back( this->computer->play( this->goban, *(this->stones) ) );
 		tmp = this->stones->size() - 1;
@@ -56,10 +57,16 @@ void		GameEngine::updateAll()
 
 		return ;
 	}
+	else if ( this->nbPlayer == 2 && this->estimation == NULL && this->stones->size() > 0 )
+	{
+		this->computer->setPlayer( this->currentPlayer );
+		this->estimation = this->computer->play( this->goban, *(this->stones) );
+		this->estimation->setSimulation(true);
+	}
 
 	this->goban->update();
 	if ( RenderEngine::lastClick[2] > 0.0 )
-		this->addPlayerStone(RenderEngine::lastClick[0], RenderEngine::lastClick[1]);
+		this->addPlayerStone( RenderEngine::lastClick[0], RenderEngine::lastClick[1] );
 
 	for (size_t i = 0; i < this->stones->size(); ++i)
 		this->stones->at(i)->update();
@@ -84,6 +91,12 @@ void		GameEngine::addPlayerStone( double x, double y )
 		return ;
 
 	this->stones->push_back( new Stones( a, b, this->currentPlayer ) );
+	if ( this->estimation != NULL )
+	{
+		delete this->estimation;
+		this->estimation = NULL;
+	}
+
 	this->goban->addStone( a, b, this->currentPlayer );
 	this->checkCapture();
 	this->currentPlayer = this->currentPlayer == 1 ? 2 : 1;
@@ -222,5 +235,8 @@ void		GameEngine::renderAll( RenderEngine *render )
 
 	for (size_t i = 0; i < this->stones->size(); ++i)
 		this->stones->at(i)->render(render);
+	if ( this->estimation != NULL )
+		this->estimation->render(render);
+
 }
 
